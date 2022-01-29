@@ -1,5 +1,6 @@
 package com.phonezoo.viewModel
 
+import android.content.Context
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,9 +13,9 @@ class DeviceViewModel : ViewModel() {
     var deviceListResponse: List<Device> by mutableStateOf(listOf())
     var errorMessage: String by mutableStateOf("")
 
-    fun getDeviceList() {
+    fun getDeviceList(context: Context) {
         viewModelScope.launch {
-            val apiService = ApiService.getInstance()
+            val apiService = ApiService.getInstance(context)
             try {
                 val deviceList = apiService.getDevices()
                 deviceListResponse = deviceList

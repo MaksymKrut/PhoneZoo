@@ -37,7 +37,7 @@ fun DeviceItem(device: Device) {
             ) {
                 Image(
                     painter = rememberImagePainter(
-                        data = device.imageUrl,
+                        data = "https://cdn2.iconfinder.com/data/icons/metro-uinvert-dock/256/OS_Android.png",
 
                         builder = {
                             scale(Scale.FILL)
@@ -46,7 +46,7 @@ fun DeviceItem(device: Device) {
 
                         }
                     ),
-                    contentDescription = device.desc,
+                    contentDescription = device.device,
                     modifier = Modifier
                         .fillMaxHeight()
                         .weight(0.2f)
@@ -60,12 +60,12 @@ fun DeviceItem(device: Device) {
                         .weight(0.8f)
                 ) {
                     Text(
-                        text = device.name,
+                        text = device.device,
                         style = MaterialTheme.typography.subtitle1,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = device.category,
+                        text = device.os,
                         style = MaterialTheme.typography.caption,
                         modifier = Modifier
                             .background(
@@ -74,7 +74,7 @@ fun DeviceItem(device: Device) {
                             .padding(4.dp)
                     )
                     Text(
-                        text = device.desc,
+                        text = device.os_version,
                         style = MaterialTheme.typography.body1,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
