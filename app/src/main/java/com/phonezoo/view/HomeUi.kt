@@ -11,6 +11,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -18,9 +20,13 @@ import coil.compose.rememberImagePainter
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
 import com.phonezoo.model.Device
+import com.phonezoo.R
+import java.util.*
 
 @Composable
 fun DeviceItem(device: Device) {
+    // TODO Add hamburger menu
+    // TODO Add detail view, favourite toggle, favourite devices page, settings page
     Card(
         modifier = Modifier
             .padding(8.dp, 4.dp)
@@ -37,17 +43,17 @@ fun DeviceItem(device: Device) {
             ) {
                 Image(
                     painter = rememberImagePainter(
-                        data = "https://cdn2.iconfinder.com/data/icons/metro-uinvert-dock/256/OS_Android.png",
-
+                        data = if (device.os.startsWith("ios")) R.drawable.ios else R.drawable.android,
                         builder = {
-                            scale(Scale.FILL)
+                            // scale(Scale.FILL)
                             placeholder(coil.compose.base.R.drawable.notification_action_background)
-                            transformations(CircleCropTransformation())
+                            // transformations(CircleCropTransformation())
 
                         }
                     ),
                     contentDescription = device.device,
                     modifier = Modifier
+                        .padding(5.dp)
                         .fillMaxHeight()
                         .weight(0.2f)
                 )
@@ -61,11 +67,11 @@ fun DeviceItem(device: Device) {
                 ) {
                     Text(
                         text = device.device,
-                        style = MaterialTheme.typography.subtitle1,
+                        style = MaterialTheme.typography.subtitle2,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = device.os,
+                        text = if (device.realMobile) "Real Device" else "Virtual Device",
                         style = MaterialTheme.typography.caption,
                         modifier = Modifier
                             .background(
@@ -74,7 +80,13 @@ fun DeviceItem(device: Device) {
                             .padding(4.dp)
                     )
                     Text(
-                        text = device.os_version,
+                        text = when {
+                            device.os.startsWith("ios") -> "iOS"
+                            device.os.startsWith("android") -> "Android"
+                            else -> {
+                                device.os.capitalize(Locale.ENGLISH)
+                            }
+                        } + " " + device.os_version,
                         style = MaterialTheme.typography.body1,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
