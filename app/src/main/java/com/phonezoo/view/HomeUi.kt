@@ -4,24 +4,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import coil.size.Scale
-import coil.transform.CircleCropTransformation
 import com.phonezoo.model.Device
 import com.phonezoo.R
-import java.util.*
+
 
 @Composable
 fun DeviceItem(device: Device) {
@@ -45,10 +38,7 @@ fun DeviceItem(device: Device) {
                     painter = rememberImagePainter(
                         data = if (device.os.startsWith("ios")) R.drawable.ios else R.drawable.android,
                         builder = {
-                            // scale(Scale.FILL)
                             placeholder(coil.compose.base.R.drawable.notification_action_background)
-                            // transformations(CircleCropTransformation())
-
                         }
                     ),
                     contentDescription = device.device,
@@ -84,7 +74,7 @@ fun DeviceItem(device: Device) {
                             device.os.startsWith("ios") -> "iOS"
                             device.os.startsWith("android") -> "Android"
                             else -> {
-                                device.os.capitalize(Locale.ENGLISH)
+                                device.os.replaceFirstChar { it.uppercase() }
                             }
                         } + " " + device.os_version,
                         style = MaterialTheme.typography.body1,

@@ -6,10 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.phonezoo.model.Device
 import com.phonezoo.ui.theme.PhoneZooTheme
 import com.phonezoo.view.DeviceItem
@@ -22,12 +22,27 @@ class MainActivity : ComponentActivity() {
         setContent {
             PhoneZooTheme {
                 Surface(color = MaterialTheme.colors.background) {
+                    ScaffoldCompose()
                     DeviceList(deviceList = deviceViewModel.deviceListResponse)
                     deviceViewModel.getDeviceList(applicationContext)
                 }
             }
         }
     }
+}
+
+@Composable
+fun ScaffoldCompose() {
+    Scaffold(topBar = { TopAppBarCompose() }) {}
+}
+
+@Composable
+fun TopAppBarCompose() {
+    TopAppBar(
+        title = { Text(text = "Devices", fontSize = 20.sp) },
+        navigationIcon = {},
+        actions = {}
+    )
 }
 
 @Composable
