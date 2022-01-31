@@ -1,13 +1,20 @@
 package com.phonezoo
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.phonezoo.model.Device
@@ -22,9 +29,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             PhoneZooTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    ScaffoldCompose()
-                    DeviceList(deviceList = deviceViewModel.deviceListResponse)
-                    deviceViewModel.getDeviceList(applicationContext)
+                    Scaffold(topBar = { TopAppBarCompose() }) {
+                        DeviceList(deviceList = deviceViewModel.deviceListResponse)
+                        deviceViewModel.getDeviceList(applicationContext)
+                    }
                 }
             }
         }
@@ -32,16 +40,33 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ScaffoldCompose() {
-    Scaffold(topBar = { TopAppBarCompose() }) {}
-}
-
-@Composable
 fun TopAppBarCompose() {
+    val context = LocalContext.current
     TopAppBar(
-        title = { Text(text = "Devices", fontSize = 20.sp) },
-        navigationIcon = {},
-        actions = {}
+        title = {
+            Text(
+                text = "BrowserStack Devices",
+                fontSize = 20.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = {
+                Toast.makeText(context, "Menu called", Toast.LENGTH_SHORT).show()
+            }
+            ) { Icon(Icons.Default.Menu, "Menu") }
+        },
+        actions = {
+            IconButton(onClick = {
+                Toast.makeText(context, "Search called", Toast.LENGTH_SHORT).show()
+            }
+            ) { Icon(Icons.Default.Search, "Search") }
+            IconButton(onClick = {
+                Toast.makeText(context, "Favorite called", Toast.LENGTH_SHORT).show()
+            }
+            ) { Icon(Icons.Default.Favorite, "Favorite") }
+        }
     )
 }
 

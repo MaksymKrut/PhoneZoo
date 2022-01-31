@@ -15,6 +15,8 @@ Create `browser.xml` file in `app/src/main/res/values/browser.xml` and insert ke
 </resources>
 ```
 
+[Home screen](https://i.ibb.co/vqn3WFb/Screen-Shot-2022-01-31-at-10-52-05-AM.png)
+
 ### Tech stack
 - Kotlin
 - Jetpack Compose
