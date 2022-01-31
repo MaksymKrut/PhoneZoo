@@ -29,10 +29,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             PhoneZooTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    Scaffold(topBar = { TopAppBarCompose() }) {
-                        DeviceList(deviceList = deviceViewModel.deviceListResponse)
-                        deviceViewModel.getDeviceList(applicationContext)
-                    }
+                    Scaffold(
+                        topBar = { TopAppBarCompose() },
+                        content = {
+                            DeviceList(deviceList = deviceViewModel.deviceListResponse)
+                            deviceViewModel.getDeviceList(applicationContext)
+                        }
+                    )
                 }
             }
         }
