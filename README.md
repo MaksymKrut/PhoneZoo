@@ -15,8 +15,8 @@ Create `browser.xml` file in `app/src/main/res/values/browser.xml` and insert ke
 </resources>
 ```
 
-### TODOs
-
-- Attach BrowserStack API
-- Unit tests - Kotlin
-- UI tests - Appium
+### Tech stack
+- Kotlin
+- Jetpack Compose
+- Retrofit 2, okhttp 3
+- Coil as image processing
